@@ -30,5 +30,24 @@ while(True):
 vid.release()
 cap.release()
 # Destroy all the windows 
-cv2.destroyAllWindows() 
+cv2.destroyAllWindows()
+
+#########################################################################################################################
+
+def jsontocsv(Input_File,Output_File,Dataset_Name='NULL',header=1):
+    import json
+    import csv
+    with open(Input_File) as json_file:
+        data=json.load(json_file)
+    if Dataset_Name!='NULL':
+        data=data[Dataset_Name]
+    O_file=open(Output_File+'.csv','w')
+    csv_writer=csv.writer(O_file)
+    for d in data:
+        if header==1:
+            h=d.keys()
+            csv_writer.writerow(h)
+            header+=1
+        csv_writer.writerow(d.values())
+    O_file.close()
 
